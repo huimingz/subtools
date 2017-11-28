@@ -37,6 +37,19 @@ class Ass(Sub):
         }
         self.__text_list = []  # 文本列表
 
+    def reset(self):
+        """重置数据"""
+        self.text = ''
+        self.__text_list = []
+        self.text_dict = {
+            self.__script_header: None,
+            self.__garbage_header: None,
+            self.__style_header: None,
+            self.__event_header: None,
+            "furigana": 0,
+            "version": self.VERSION,
+        }
+
     @property
     def scripts(self):
         return self.text_dict[self.__script_header]
@@ -118,7 +131,7 @@ class Ass(Sub):
         self.__format_validator()
         self.__split()
 
-    def from_bin(self, content, encoding="utf-8", format=None, *args, **kwargs):
+    def from_bytes(self, content, encoding="utf-8", format=None, *args, **kwargs):
         """从二进制中获取字幕内容"""
         self.text = data_utils.from_bin(content, encoding)
         # 清理文件bom
