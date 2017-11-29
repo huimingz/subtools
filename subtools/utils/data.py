@@ -9,14 +9,7 @@ import chardet
 from subtools import exceptions
 
 
-def from_bin(content, encoding, *args, **kwargs):
-    """从二进制中获取字幕文本内容"""
-    if isinstance(content, bytes):
-        try:
-            return content.decode(encoding=chardet.detect(content).get("encoding"))
-        except UnicodeDecodeError:
-            return content.decode(encoding)
-    return content
+
 
 def get_encoding(content, *args, **kwargs):
     """从unicode内容中获取编码"""
@@ -30,9 +23,17 @@ def get_encoding(content, *args, **kwargs):
         if detector.done: break
     # 关闭检测对象
     detector.close()
+    print(detector.result.get("encoding"))
     return detector.result.get("encoding")
 
-
+def from_bin(content, encoding, *args, **kwargs):
+    """从二进制中获取字幕文本内容"""
+    if isinstance(content, bytes):
+        try:
+            return content.decode(encoding)
+        except UnicodeDecodeError:
+            return content.decode(encoding=get_encoding(content[:10000]))
+    return content
 
 def from_file(path, encoding, *args, **kwargs):
     """从文件中获取字幕文本内容"""
@@ -45,7 +46,7 @@ def from_file(path, encoding, *args, **kwargs):
             return content.decode(encoding)
         except UnicodeDecodeError:
             # 如果指定编码无法解码文件内容，则尝试自动获取编码
-            return content.decode(encoding=get_encoding(content))
+            return content.decode(encoding=get_encoding(content[:10000]))
     else:
         raise exceptions.AssFilePathError("路径不存在，无法读取文件内容")
 
