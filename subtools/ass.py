@@ -22,7 +22,7 @@ class Ass(Sub):
 
     __format = "Format"
     __version = "v4.00+"
-    VERSION = "0.1.0.0"  # 解析器版本
+    VERSION = "V0.1.0"  # 解析器版本
 
     def __init__(self):
         super(Ass, self).__init__()
