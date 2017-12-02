@@ -210,7 +210,7 @@ class AssParse(object):
         """
         STYLE_INFO = {
             "Format": Field(r"Format:\s?", r"(?P<Format>Style):\s?", zh_title="格式"),
-            "Name": Field(r"Name", r"(?P<Name>[^,]+)", zh_title="名称"),
+            "Name": Field(r"Name", r"(?P<Name>[^,]+)", zh_title="样式名称"),
             "Fontname": Field(r"Fontname", r"(?P<Fontname>[^,]+)", zh_title="字体"),
             "Fontsize": Field(r"Fontsize", r"(?P<Fontsize>[\d\.]+)", zh_title="字体大小"),
             "PrimaryColour": Field(r"PrimaryColour", r"(?P<PrimaryColour>&H[0-9a-fA-F]{8})", zh_title="主要颜色"),
@@ -322,9 +322,9 @@ class AssParse(object):
             "End": Field(re_val=r"(?P<End>\d{1,2}:(?:5\d|[0-4]\d):(?:5\d|[0-4]\d).(?:9\d{1,2}|[0-8]\d{1,2}))", zh_title="结束时间"),
             "Style": Field(re_val=r"(?P<Style>[^,]+)", zh_title="样式"),
             "Name": Field(re_val=r"(?P<Name>[^,]*)", zh_title="角色名"),
-            "MarginL": Field(re_val=r"(?P<MarginL>(?:\d|[1-9]\d{1,3}))", zh_title="左边距"),
-            "MarginR": Field(re_val=r"(?P<MarginR>(?:\d|[1-9]\d{1,3}))", zh_title="右边距"),
-            "MarginV": Field(re_val=r"(?P<MarginV>(?:\d|[1-9]\d{1,3}))", zh_title="垂直边距"),
+            "MarginL": Field(re_val=r"(?P<MarginL>\d+)", zh_title="左边距"),
+            "MarginR": Field(re_val=r"(?P<MarginR>\d+)", zh_title="右边距"),
+            "MarginV": Field(re_val=r"(?P<MarginV>\d+)", zh_title="垂直边距"),
             "Effect": Field(re_val=r"(?P<Effect>[^,]*)", zh_title="过渡特效"),
             "Text": Field(re_val=r"(?P<Text>.*)", zh_title="对白字幕"),
         }

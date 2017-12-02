@@ -92,7 +92,7 @@ def add_furi_karacode(ass, style_name):
             # 添加uid
             tmp["order"].insert(0, uid)
             # 添加脚本事件
-            tmp["event"][uid] = event
+            tmp["event"][uid] = copy.deepcopy(event)
 
 def yahoo_rubi(text, appid, grade=1, *args, **kwargs):
     """
@@ -205,6 +205,7 @@ def get_event(ass, style_name):
     :param style_name: 目标样式（list）
     :return: 文本列表
     """
+    safe_style_name = []
     # 目标事件
     obj_events = OrderedDict()
     for uid in ass.event_uid:
@@ -236,6 +237,10 @@ def get_event(ass, style_name):
         except (UnicodeEncodeError, UnicodeDecodeError):
             # print("非法内容：", text)
             continue
+
+        if obj_events[uid]["Style"] not in safe_style_name:
+            safe_style_name.append(obj_events[uid]["Style"])
+
         text_temp.append(text.encode("utf-8"))
 
     # 对文本进行分组，保证每组数据容量不会过大
@@ -255,7 +260,7 @@ def get_event(ass, style_name):
     if packet_text:
         text_list.append(packet_text)
 
-    return text_list
+    return text_list, safe_style_name
 
 def furigana(ass, appid="", style_name=[], grade=1, *args, **kwargs):
     """
@@ -269,5 +274,5 @@ def furigana(ass, appid="", style_name=[], grade=1, *args, **kwargs):
     :param kwargs:
     :return:
     """
-    text_list = get_event(ass, style_name)
+    text_list, style_name = get_event(ass, style_name)
     to_rubitext(ass, text_list, appid, style_name, grade)
