@@ -23,7 +23,6 @@ def get_encoding(content, *args, **kwargs):
         if detector.done: break
     # 关闭检测对象
     detector.close()
-    print(detector.result.get("encoding"))
     return detector.result.get("encoding")
 
 def from_bin(content, encoding, *args, **kwargs):
