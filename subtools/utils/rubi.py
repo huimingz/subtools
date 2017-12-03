@@ -186,6 +186,8 @@ def to_rubitext(ass, text_list, appid="", style_name=[], grade=1, *args, **kwarg
     reversed_ = []
     for text in text_list:
         reversed_.append(parse_ord(yahoo_rubi(text, appid, grade)))
+    # 写入api调用次数
+    ass.apires_count = len(text_list)
     # 逆向工程
     furi_list = rev_ord2text(reversed_)
     # 添加注音的文本

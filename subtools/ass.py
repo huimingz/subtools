@@ -22,7 +22,7 @@ class Ass(Sub):
 
     __format = "Format"
     __version = "v4.00+"
-    VERSION = "V0.1.0"  # 解析器版本
+    VERSION = "V0.1.1"  # 解析器版本
 
     def __init__(self):
         super(Ass, self).__init__()
@@ -33,6 +33,7 @@ class Ass(Sub):
             self.__style_header: None,
             self.__event_header: None,
             "furigana": 0,
+            "apires_count": 0,
             "version": self.VERSION,
         }
         self.__text_list = []  # 文本列表
@@ -52,66 +53,87 @@ class Ass(Sub):
 
     @property
     def scripts(self):
+        """脚本信息（dict）"""
         return self.text_dict[self.__script_header]
 
     @property
     def styles(self):
+        """字幕样式信息（dict）"""
         return self.text_dict[self.__style_header]
 
     @property
     def garbages(self):
+        """字幕非重要脚本信息（dict）"""
         return self.text_dict[self.__garbage_header]
 
     @property
     def events(self):
+        """字幕事件信息（dict）"""
         return self.text_dict[self.__event_header]
 
     @property
     def default_script_order(self):
+        """字幕默认脚本标题顺序（list）"""
         return AssParse.SCRIPT_DEFAULT_ORDER
 
     @property
     def default_garbage_order(self):
+        """字幕默认非重要脚本标题顺序（list）"""
         return AssParse.GARBAGE_DEFAULT_ORDER
 
     @property
     def style_format(self):
+        """字幕样式格式（list）"""
         return self.text_dict[self.__style_header].get("format")
 
     @property
     def style_names(self):
+        """字幕所有样式名称(list)"""
         return self.text_dict[self.__style_header].get("style_name")
 
     @property
     def style_(self):
+        """字幕脚本样式内容（dict）"""
         return self.text_dict[self.__style_header].get("style")
 
     @property
     def style_uid(self):
+        """字幕脚本样式uid，用于排序（list）"""
         return self.text_dict[self.__style_header].get("order")
 
     @property
     def event_format(self):
+        """字幕事件格式（list）"""
         return self.text_dict[self.__event_header].get("format")
 
     @property
     def event_(self):
+        """字幕事件内容（dict）"""
         return self.text_dict[self.__event_header].get("event")
 
     @property
     def event_uid(self):
+        """字幕事件uid，用于排序（list）"""
         return self.text_dict[self.__event_header].get("order")
 
     @property
     def event_line_num(self):
+        """字幕事件行数（int）"""
         return len(self.text_dict[self.__event_header].get("order"))
 
     @property
+    def apires_count(self):
+        """使用假名标注时调用yahoo api的次数（int）"""
+        return self.text_dict["apires_count"]
+
+    @property
     def is_furigana(self):
+        """是否进行过假名标注（boolean）"""
         return bool(self.text_dict["furigana"])
 
     @property
     def verison(self):
+        """解析器当前版本号"""
         return self.VERSION
 
     def from_file(self, path, encoding="utf-8", format=None, *args, **kwargs):
