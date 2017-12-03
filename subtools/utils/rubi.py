@@ -16,7 +16,7 @@ from subtools import exceptions
 
 
 YAHOO_API_URL = "https://jlp.yahooapis.jp/FuriganaService/V1/furigana"
-DATA_SIZE_LIMIT = 25 * 1024  # 单次上传最大20KB
+DATA_SIZE_LIMIT = 25 * 1024  # 单次上传最大25KB
 
 # 标记每段文本的uid
 # UID_SYMBOL = "{#uid-%(uid)s#}%(text)s"
@@ -187,7 +187,7 @@ def to_rubitext(ass, text_list, appid="", style_name=[], grade=1, *args, **kwarg
     for text in text_list:
         reversed_.append(parse_ord(yahoo_rubi(text, appid, grade)))
     # 写入api调用次数
-    ass.apires_count = len(text_list)
+    ass.text_dict["apires_count"] = len(text_list)
     # 逆向工程
     furi_list = rev_ord2text(reversed_)
     # 添加注音的文本
