@@ -308,14 +308,17 @@ class Ass(Sub):
 
     def rev_event_lines(self, furigana=False):
         """对event进行逆向解析"""
+        textlines = []  # 事件内容
+
+        # 生成Format行内容
+        textlines.append("[%s]" % self.__event_header)
+        textlines.append("Format: %s" % ", ".join(self.event_format))
+
+        # 检查是否生成furigana格式的文本内容
         if furigana and self.is_furigana:
             self.event_format[-1] = "furigana"
 
-        textlines = []
         if self.events:
-            textlines.append("[%s]" % self.__event_header)
-            textlines.append("Format: %s" % ", ".join(self.event_format))
-
             tmp = self.text_dict[self.__event_header]
             for uid in self.event_uid:
                 txt = ",".join([self.event_[uid][k] for k in self.event_format[:-1]])

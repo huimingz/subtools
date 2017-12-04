@@ -1,1 +1,8 @@
 *.pyc
+appid.txt
+ass_parser_old/
+rabbit_consumer/
+test/
+yahoo_api_test/
+subtools/__pycache__/
+subtools/utils/__pycache__/

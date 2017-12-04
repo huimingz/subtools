@@ -193,7 +193,7 @@ def to_rubitext(ass, text_list, appid="", style_name=[], grade=1, *args, **kwarg
     # 添加注音的文本
     for furi in furi_list:
         ass.event_[furi["uid"]]["furigana"] = furi["furigana"]
-    # 添加注音提示
+    # 添加假名标注标识
     ass.text_dict["furigana"] = 1
     # 添加Aegisub卡拉OK脚本
     add_furi_karacode(ass, style_name)
