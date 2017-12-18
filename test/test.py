@@ -23,7 +23,7 @@ file_path6 = "./uk.ass"
 start_time = time.time()
 
 my_ass = Ass()
-my_ass.from_file("./2.ass")
+my_ass.from_file(file_path0)
 my_ass.parse_all()
 
 # json_data = my_ass.as_json()
@@ -34,12 +34,12 @@ my_ass.parse_all()
 # my_ass.parse_event()
 # my_ass.as_pickle()
 
-my_ass.furigana(["Default", "Default1"], appid)
+# my_ass.furigana(["Default", "Default1"], appid)
 
 # for uid in my_ass.text_dict["Events"]["order"]:
 #     print(my_ass.text_dict["Events"]["event"][uid])
 
-text = my_ass.as_str(furigana=True)
+text = my_ass.as_str(furigana=False)
 print(text)
 
 # my_ass.save2file("2_new.ass", True)

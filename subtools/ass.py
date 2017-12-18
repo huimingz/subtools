@@ -13,6 +13,10 @@ from .utils import data as data_utils
 from .utils import validators
 
 
+VERSION = (0, 1, 1)
+__version__ = ".".join(map(str, VERSION))
+
+
 class Ass(Sub):
     """Ass Subtitle base class"""
     __script_header = "Script Info"
@@ -22,7 +26,7 @@ class Ass(Sub):
 
     __format = "Format"
     __version = "v4.00+"
-    VERSION = "V0.1.1"  # 解析器版本
+    VERSION = __version__  # 解析器版本
 
     def __init__(self):
         super(Ass, self).__init__()
